@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+  overflow-y: scroll;
+}
+
+.section-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 30px 8%;
+  width: 100%;
+}
