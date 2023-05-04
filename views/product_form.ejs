@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<%- include('partials/head') %>
+	<body>
+		<%- include('partials/nav') %>
+
+		<main class="section-container">
+			<h1 class="text-4xl"><%= title %></h1>
+
+			<form class="mt-3" method="POST" action="/products">
+				<div class="mb-3 flex items-center gap-1 w-1/2">
+					<label for="name">Product Name:</label>
+					<input class="border p-1 rounded-md flex-1" type="text" name="name"
+					id="name" placeholder="Scooby Snacks" maxlength="100" required>
+				</div>
+				<div class="mb-3 flex items-center gap-1 w-1/2">
+					<label for="price">Product Price:</label>
+					<input class="border p-1 rounded-md flex-1" type="text" name="price"
+					id="price" placeholder="9.99" maxlength="10" required>
+				</div>
+				<div class="mb-3 flex flex-col gap-1 w-1/2">
+					<label for="description">Product Description:</label>
+					<textarea class="border p-1 rounded-md flex-1" type="text" name="description"
+					id="description" placeholder="A tasty treat." maxlength="500" rows="5" required></textarea>
+				</div>
+				<div class="mb-3 flex items-center gap-1 w-1/2">
+					<label for="category">Category:</label>
+					<select name="category" id="category" required>
+            <% categories.forEach(function(cat) { %>
+							<% if (typeof(category) === "undefined") { %>
+                <option value="<%- cat._id %>"><%- cat.name %></option>
+							<% } else { %>
+								<% if (cat.name == category.name) { %>
+									<option value="<%- cat._id %>" selected><%- cat.name %></option>
+								<% } else { %>
+									<option value="<%- cat._id %>"><%- cat.name %></option>
+								<% } %>
+							<% } %>
+            <% }) %>
+          </select>
+				</div>
+
+				<div class="flex gap-4">
+					<% if (typeof(category) !== "undefined") { %>
+						<a
+							href="/categories/<%= category._id %>"
+							class="bg-black text-white px-5 py-2 rounded-full hover:bg-white hover:text-black border border-black hover:shadow-lg"
+						>
+							Cancel
+						</a>
+					<% } else { %>
+						<a
+							href="/products"
+							class="bg-black text-white px-5 py-2 rounded-full hover:bg-white hover:text-black border border-black hover:shadow-lg"
+						>
+							Cancel
+						</a>
+					<% } %>
+
+					<button
+						type="submit"
+						class="bg-black text-white px-5 py-2 rounded-full hover:bg-white hover:text-black border border-black hover:shadow-lg"
+					>
+						Add Product
+					</button>
+				</div>
+			</form>
+
+			<%- include('partials/errors') %>
+		</main>
+
+		<%- include('partials/footer') %>
+	</body>
+</html>
